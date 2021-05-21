@@ -12,7 +12,7 @@ export default ({ title, color, icon, tasks }) => {
         {title}
       </Heading>
       <Text mt={2} textColor="gray.500">
-        {tasks} tasks
+        {tasks.length} tasks
       </Text>
     </Box>
   );

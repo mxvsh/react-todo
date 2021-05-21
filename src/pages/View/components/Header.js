@@ -6,11 +6,13 @@ import { FiChevronLeft } from "react-icons/fi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Heading } from "@chakra-ui/layout";
 import { useHistory } from "react-router-dom";
-import Lists from "../../Lists";
 import { Text } from "@chakra-ui/layout";
 import { IconButton } from "@chakra-ui/button";
 
+import { useLists } from "../../Lists";
+
 export default ({ listName }) => {
+  const { lists } = useLists();
   const history = useHistory();
   return (
     <Box>
@@ -29,25 +31,15 @@ export default ({ listName }) => {
       </Flex>
       <Box p={12} textColor="white">
         <IconButton
-          icon={Lists[listName].icon}
+          icon={lists[listName].icon}
           fontSize="2xl"
           size="lg"
           bg="white"
           textColor="brand.500"
           borderRadius="full"
         />
-        {/* <Box
-          fontSize="3xl"
-          p={2}
-          bg="white"
-          textColor="brand.500"
-          w="12"
-          borderRadius="full"
-        >
-          {Lists[listName].icon}
-        </Box> */}
-        <Heading mt={4}>{Lists[listName].title}</Heading>
-        <Text>{Lists[listName].tasks} Tasks</Text>
+        <Heading mt={4}>{lists[listName].title}</Heading>
+        <Text>{lists[listName].tasks.length} Tasks</Text>
       </Box>
     </Box>
   );

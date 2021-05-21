@@ -8,18 +8,22 @@ import { GridItem } from "@chakra-ui/layout";
 import Footer from "./components/Footer";
 import { Link } from "react-router-dom";
 import FAB from "../../components/FAB";
-import Lists from "../Lists";
+import { useLists } from "../Lists";
+import { useDisclosure } from "@chakra-ui/hooks";
+import ListEntry from "../../components/ListEntry";
 
 export default () => {
+  const newList = useDisclosure();
+  const { lists, setLists } = useLists();
   return (
     <Box>
       <Header />
       <Container>
         <SimpleGrid columns={{ base: 2, md: 3 }} gap={4}>
-          {Object.keys(Lists).map((listItem) => (
+          {Object.keys(lists).map((listItem) => (
             <GridItem>
               <Link to={listItem}>
-                <Card {...Lists[listItem]} />
+                <Card {...lists[listItem]} />
               </Link>
             </GridItem>
           ))}
@@ -27,7 +31,14 @@ export default () => {
         <Footer />
       </Container>
 
-      <FAB />
+      <FAB onClick={() => newList.onOpen()} />
+      <ListEntry
+        isOpen={newList.isOpen}
+        onClose={() => newList.onClose()}
+        onFinish={(data) => {
+          setLists({ ...lists, ...data });
+        }}
+      />
     </Box>
   );
 };
